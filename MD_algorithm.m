@@ -5,13 +5,14 @@ function eps = MD_algorithm(T, e, j, z1, z2, n)
 % j - numer kroku
 % z1, z2 - przedzial poczatkowy
 % n - wielkosc macierzy
-    while (z2 - z1) > e
+
+while (z2 - z1) > e
     z = (z1 + z2) / 2;
     if dean(diag(T), n, z) == j-1
         z1 = z;
     else 
         z2 = z;
     end
-    end
-    eps = z;
+end
+eps = z;
 end

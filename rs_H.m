@@ -1,23 +1,25 @@
-function rs_matrix = rs_H(A, B, n, V, Vc, Lc, alfa)
+function rs_matrix = rs_H(A, B, n, V, Vc, Lc, M)
 % umacierzowienie rownania schrodingera
 % A, B - polozenie nieskonczonych barier potencjalu
 % n - wielkosc macierzy
-% V - wzor na potencjal
+% V - funkcja potencjalu V(x)
 % Vc - charakterystyczna energia
-% Lc - parametr o wymiarze dlugosci
-% alfa - bezwymiarowy parametr skali
+% Lc - parametr normowania (o wymiarze długości)
+% M - masa cząstki
+hk = 1.05457 * 10^(-34); % stała Plancka kreślona [J * s]
+
 a = A / Lc;
 b = B / Lc;
 s = (b - a) / (n + 1);
+alfa = (2 * M * Vc * Lc^2) / hk^2;
 
-X = linspace(-500, 500, 1000);
 x = zeros(1, n);
 rs_matrix = zeros(n, n);
 
 for i = 1:n
-    x(i) = a + i * s;
+    x(i) = a + i * s; % wyliczenie bezwymiarowych wspolrzednych siatki
 end
-v = Vc .* V(x, 1, 1);
+v = V(x, 1, 1) ./ Vc;
 vk = s^2 * alfa .* v;
 
 for i = 1:n
